@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget* parent)
     mExitMenu = new QMenu(this);
     mExitAct = new QAction();
     mExitAct->setText(tr("退出"));
-    mExitAct->setIcon(QIcon(":/res/close.png"));
+    mExitAct->setIcon(QIcon(":/res/close.ico"));
     mExitMenu->addAction(mExitAct);
 
     connect(mExitAct, &QAction::triggered, this, [=]() { qApp->exit(0); });
@@ -76,6 +76,10 @@ MainWindow::MainWindow(QWidget* parent)
     //给标签添加事件过滤器
     ui->lblHighCurve->installEventFilter(this);
     ui->lblLowCurve->installEventFilter(this);
+
+    //给搜索绑定回车键（注意大小都需要绑定） --comment by ssz 230308
+    ui->btnSearch->setShortcut(Qt::Key_Enter);
+    ui->btnSearch->setShortcut(Qt::Key_Return);
 }
 
 MainWindow::~MainWindow() { delete ui; }
@@ -99,7 +103,7 @@ void MainWindow::getWeatherInfo(QString cityName)
 {
     QString cityCode = WeatherTool::getCityCode(cityName);
     if(cityCode.isEmpty()){
-        QMessageBox::warning(this,"天气","请检查",QMessageBox::Ok);
+        QMessageBox::warning(this,"提示","请检查城市名是否输错",QMessageBox::Ok);
         return;
     }
     QUrl url("http://t.weather.itboy.net/api/weather/city/" + cityCode);
@@ -319,6 +323,7 @@ void MainWindow::paintHighCurve()
         }
         painter.drawLine(pointX[i],pointY[i],pointX[i + 1],pointY[i + 1]);
     }
+    painter.restore();
 }
 
 void MainWindow::paintLowCurve()
@@ -372,6 +377,12 @@ void MainWindow::paintLowCurve()
     }
 
     painter.restore();
+}
+
+void MainWindow::callKeyBoard()
+{
+//     KeyBoard *keyBoard = new KeyBoard(0, ui->cityLineEdit);
+//     keyBoard->show();
 }
 
 void MainWindow::onReplied(QNetworkReply *reply)
