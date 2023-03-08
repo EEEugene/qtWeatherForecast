@@ -35,6 +35,7 @@ class MainWindow : public QMainWindow {
 
     void paintHighCurve();
     void paintLowCurve();
+    void callKeyBoard();
 private slots:
     void on_btnSearch_clicked();
 
