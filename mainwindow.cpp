@@ -150,7 +150,7 @@ void MainWindow::parseJson(QByteArray &byteArray)
 
     //解析预报中的5天数据
     QJsonArray forecatArr =  objData.value("forecast").toArray();
-    for(int i = 0;i < 5;i++){
+    for(int i = 0;i < 5;++i){
         QJsonObject objForecast = forecatArr[i].toObject();
         mDay[i + 1].week = objForecast.value("week").toString();
         mDay[i + 1].date = objForecast.value("ymd").toString();
@@ -220,7 +220,7 @@ void MainWindow::updateUI()
     ui->lblQuality->setText(mToday.quality);
 
     //更新六天的数据
-    for(int i = 0;i < 6;i++){
+    for(int i = 0;i < 6;++i){
         //更新日期和时间
         mWeekList[i]->setText("周" + mDay[i].week.right(1));
         ui->lblWeek0->setText("昨天");
@@ -283,20 +283,20 @@ void MainWindow::paintHighCurve()
 
     //获取x坐标
     int pointX[6] = {0};
-    for(int i = 0;i < 6;i++){
+    for(int i = 0;i < 6;++i){
         pointX[i] = mWeekList[i]->pos().x() + mWeekList[i]->width() / 2;
     }
     //获取y坐标
     int tmpSum = 0;
     int tmpAvg = 0;
-    for(int i = 0;i < 6;i++){
+    for(int i = 0;i < 6;++i){
         tmpSum += mDay[i].high;
     }
     tmpAvg = tmpSum / 6;
 
     int pointY[6] = {0};
     int yCenter = ui->lblHighCurve->height() / 2;
-    for(int i = 0;i < 6;i++){
+    for(int i = 0;i < 6;++i){
         pointY[i] = yCenter - ((mDay[i].high - tmpAvg) * INCREMENT);
     }
     //绘制
@@ -307,13 +307,13 @@ void MainWindow::paintHighCurve()
     painter.setPen(pen);
     painter.setBrush(QColor(255,170,0));    //设置画刷内部填充的颜色
     //画点、写文本
-    for(int i = 0;i < 6;i++){
+    for(int i = 0;i < 6;++i){
         painter.drawEllipse(QPoint(pointX[i],pointY[i]),POINT_RADIUS,POINT_RADIUS);
 
         //显示温度文本
         painter.drawText(pointX[i] - TEXT_OFFSET_X,pointY[i] - TEXT_OFFSET_Y,QString::number(mDay[i].high) + "°");
     }
-    for(int i = 0;i < 5;i++){
+    for(int i = 0;i < 5;++i){
         if(i == 0){
             pen.setStyle(Qt::DashLine);
             painter.setPen(pen);
@@ -335,20 +335,20 @@ void MainWindow::paintLowCurve()
 
     //获取x坐标
     int pointX[6] = {0};
-    for(int i = 0;i < 6;i++){
+    for(int i = 0;i < 6;++i){
         pointX[i] = mWeekList[i]->pos().x() + mWeekList[i]->width() / 2;
     }
     //获取y坐标
     int tmpSum = 0;
     int tmpAvg = 0;
-    for(int i = 0;i < 6;i++){
+    for(int i = 0;i < 6;++i){
         tmpSum += mDay[i].low;
     }
     tmpAvg = tmpSum / 6;
 
     int pointY[6] = {0};
     int yCenter = ui->lblLowCurve->height() / 2;
-    for(int i = 0;i < 6;i++){
+    for(int i = 0;i < 6;++i){
         pointY[i] = yCenter - ((mDay[i].low - tmpAvg) * INCREMENT);
     }
     //绘制
@@ -359,13 +359,13 @@ void MainWindow::paintLowCurve()
     painter.setPen(pen);
     painter.setBrush(QColor(0,255,255));    //设置画刷内部填充的颜色
     //画点、写文本
-    for(int i = 0;i < 6;i++){
+    for(int i = 0;i < 6;++i){
         painter.drawEllipse(QPoint(pointX[i],pointY[i]),POINT_RADIUS,POINT_RADIUS);
 
         //显示温度文本
         painter.drawText(pointX[i] - TEXT_OFFSET_X,pointY[i] - TEXT_OFFSET_Y,QString::number(mDay[i].low) + "°");
     }
-    for(int i = 0;i < 5;i++){
+    for(int i = 0;i < 5;++i){
         if(i == 0){
             pen.setStyle(Qt::DashLine);
             painter.setPen(pen);
