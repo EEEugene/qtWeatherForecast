@@ -13,7 +13,8 @@
 
 **界面展示效果:**
 
-<img src="https://sszblog.oss-cn-shenzhen.aliyuncs.com/img/myWeather.png">
+<img src="https://sszblog.oss-cn-shenzhen.aliyuncs.com/img/weather.png">
+
 
 # 总结：
 该天气预报总体制作点不难，难点在于从接口中获取数据，然后得到JSON数据并切割出自己想要的数据并显现在界面上，这是一个小难点。总体来说制作成功，并且已经打包发布，但对于天气方面还有一些可以调整的地方，后续有机会可以更改。
