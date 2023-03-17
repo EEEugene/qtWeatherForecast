@@ -13,30 +13,31 @@
 #include <QTimer>
 #include <QPainter>
 #include <QPen>
+
 #include "weatherData.h"
 #include "ui_mainwindow.h"
 #include "weatherTool.h"
 
-#define INCREMENT 3     //温度每升高或降低1度，y轴坐标的增量
+#define INCREMENT 2     //温度每升高或降低1度，y轴坐标的增量
 #define POINT_RADIUS 3  //曲线秒点的大小
-#define TEXT_OFFSET_X 12    //温度文本相对于点的偏移
-#define TEXT_OFFSET_Y 12
+#define TEXT_OFFSET_X 9    //温度文本相对于点的偏移
+#define TEXT_OFFSET_Y 7
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
     //设置窗口属性
-    setWindowFlag(Qt::FramelessWindowHint);  // 无边框
-    setFixedSize(width(), height());         // 固定窗口大小
+    setWindowFlag(Qt::FramelessWindowHint);  // 设置无边框
+    setFixedSize(width(), height());         // 设置固定窗口大小
 
-    // 右键菜单：退出程序
+    //构建右键菜单
     mExitMenu = new QMenu(this);
     mExitAct = new QAction();
     mExitAct->setText(tr("退出"));
     mExitAct->setIcon(QIcon(":/res/close.ico"));
     mExitMenu->addAction(mExitAct);
-
+    //用lamba函数连接退出按钮，触发的试试就退出该应用
     connect(mExitAct, &QAction::triggered, this, [=]() { qApp->exit(0); });
 
     //将控件添加到控件数组
@@ -70,7 +71,7 @@ MainWindow::MainWindow(QWidget* parent)
     connect(mNetAccessManager,&QNetworkAccessManager::finished,this,&MainWindow::onReplied);
 
     //直接在构造中请求天气数据
-    //深圳的城市编码
+    //目前默认为杭州，可更改
     getWeatherInfo("杭州");
 
     //给标签添加事件过滤器
@@ -84,7 +85,10 @@ MainWindow::MainWindow(QWidget* parent)
 
 MainWindow::~MainWindow() { delete ui; }
 
+//重写父类虚函数
+//父类中的默认实现是忽略右键菜单时间，重写后就可以
 void MainWindow::contextMenuEvent(QContextMenuEvent* event) {
+    //弹出右键菜单
     mExitMenu->exec(QCursor::pos());
     event->accept();
 }
@@ -103,7 +107,7 @@ void MainWindow::getWeatherInfo(QString cityName)
 {
     QString cityCode = WeatherTool::getCityCode(cityName);
     if(cityCode.isEmpty()){
-        QMessageBox::warning(this,"提示","请检查城市名是否输错",QMessageBox::Ok);
+        QMessageBox::warning(this,"提示","请检查城市名是否输错，目前暂时只支持国内。",QMessageBox::Ok);
         return;
     }
     QUrl url("http://t.weather.itboy.net/api/weather/city/" + cityCode);
@@ -150,7 +154,7 @@ void MainWindow::parseJson(QByteArray &byteArray)
 
     //解析预报中的5天数据
     QJsonArray forecatArr =  objData.value("forecast").toArray();
-    for(int i = 0;i < 5;++i){
+    for(int i = 0;i < 5;i++){
         QJsonObject objForecast = forecatArr[i].toObject();
         mDay[i + 1].week = objForecast.value("week").toString();
         mDay[i + 1].date = objForecast.value("ymd").toString();
@@ -220,7 +224,7 @@ void MainWindow::updateUI()
     ui->lblQuality->setText(mToday.quality);
 
     //更新六天的数据
-    for(int i = 0;i < 6;++i){
+    for(int i = 0;i < 6;i++){
         //更新日期和时间
         mWeekList[i]->setText("周" + mDay[i].week.right(1));
         ui->lblWeek0->setText("昨天");
@@ -265,15 +269,17 @@ void MainWindow::updateUI()
 
 bool MainWindow::eventFilter(QObject *watched, QEvent *event)
 {
+    //绘制最高温度曲线
     if(watched == ui->lblHighCurve && event->type() == QEvent::Paint){
         paintHighCurve();
     }
+    //绘制最低温度曲线
     if(watched == ui->lblLowCurve && event->type() == QEvent::Paint){
         paintLowCurve();
     }
     return QWidget::eventFilter(watched,event);
 }
-
+//绘制温度曲线函数
 void MainWindow::paintHighCurve()
 {
     QPainter painter(ui->lblHighCurve);
@@ -283,20 +289,20 @@ void MainWindow::paintHighCurve()
 
     //获取x坐标
     int pointX[6] = {0};
-    for(int i = 0;i < 6;++i){
+    for(int i = 0;i < 6;i++){
         pointX[i] = mWeekList[i]->pos().x() + mWeekList[i]->width() / 2;
     }
     //获取y坐标
     int tmpSum = 0;
     int tmpAvg = 0;
-    for(int i = 0;i < 6;++i){
+    for(int i = 0;i < 6;i++){
         tmpSum += mDay[i].high;
     }
     tmpAvg = tmpSum / 6;
 
     int pointY[6] = {0};
     int yCenter = ui->lblHighCurve->height() / 2;
-    for(int i = 0;i < 6;++i){
+    for(int i = 0;i < 6;i++){
         pointY[i] = yCenter - ((mDay[i].high - tmpAvg) * INCREMENT);
     }
     //绘制
@@ -307,13 +313,13 @@ void MainWindow::paintHighCurve()
     painter.setPen(pen);
     painter.setBrush(QColor(255,170,0));    //设置画刷内部填充的颜色
     //画点、写文本
-    for(int i = 0;i < 6;++i){
+    for(int i = 0;i < 6;i++){
         painter.drawEllipse(QPoint(pointX[i],pointY[i]),POINT_RADIUS,POINT_RADIUS);
 
         //显示温度文本
         painter.drawText(pointX[i] - TEXT_OFFSET_X,pointY[i] - TEXT_OFFSET_Y,QString::number(mDay[i].high) + "°");
     }
-    for(int i = 0;i < 5;++i){
+    for(int i = 0;i < 5;i++){
         if(i == 0){
             pen.setStyle(Qt::DashLine);
             painter.setPen(pen);
@@ -335,20 +341,20 @@ void MainWindow::paintLowCurve()
 
     //获取x坐标
     int pointX[6] = {0};
-    for(int i = 0;i < 6;++i){
+    for(int i = 0;i < 6;i++){
         pointX[i] = mWeekList[i]->pos().x() + mWeekList[i]->width() / 2;
     }
     //获取y坐标
     int tmpSum = 0;
     int tmpAvg = 0;
-    for(int i = 0;i < 6;++i){
+    for(int i = 0;i < 6;i++){
         tmpSum += mDay[i].low;
     }
     tmpAvg = tmpSum / 6;
 
     int pointY[6] = {0};
     int yCenter = ui->lblLowCurve->height() / 2;
-    for(int i = 0;i < 6;++i){
+    for(int i = 0;i < 6;i++){
         pointY[i] = yCenter - ((mDay[i].low - tmpAvg) * INCREMENT);
     }
     //绘制
@@ -359,13 +365,13 @@ void MainWindow::paintLowCurve()
     painter.setPen(pen);
     painter.setBrush(QColor(0,255,255));    //设置画刷内部填充的颜色
     //画点、写文本
-    for(int i = 0;i < 6;++i){
+    for(int i = 0;i < 6;i++){
         painter.drawEllipse(QPoint(pointX[i],pointY[i]),POINT_RADIUS,POINT_RADIUS);
 
         //显示温度文本
         painter.drawText(pointX[i] - TEXT_OFFSET_X,pointY[i] - TEXT_OFFSET_Y,QString::number(mDay[i].low) + "°");
     }
-    for(int i = 0;i < 5;++i){
+    for(int i = 0;i < 5;i++){
         if(i == 0){
             pen.setStyle(Qt::DashLine);
             painter.setPen(pen);
