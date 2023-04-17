@@ -1,0 +1,7 @@
+QImage和QPixMap都是Qt中用于表示图像的类，它们的区别主要在于：
+
+QImage和QPixMap底层数据的存储方式不同：QImage的像素数据存储在内存中，而QPixMap则是使用显存来存储像素数据。因此，当需要处理大量图像数据时，QImage会占用更多的内存，而QPixMap的处理速度更快，因为它直接使用图形硬件。
+QImage和QPixMap的应用场景不同：QImage可以在内存中进行高级图像处理操作，例如将一个图像缩放或者应用滤镜效果，然后将处理后的图像渲染到QPixMap或者QWidget上显示。而QPixMap通常用于直接在窗口或者其他QWidget上绘制位图，例如游戏动画或者用户界面元素。
+QImage和QPixMap对透明度的处理方式不同：QPixMap中的像素不支持透明度，如果需要使用透明度，需要将QPixMap和QPainter的compositing模式一起使用。而QImage可以支持不同的透明度设置，对于图像处理上涉及到透明通道的操作，比如将一些图像合并、叠加，会更加便捷。
+
+综上所述，QImage和QPixMap在应用场景、像素数据存储方式、透明度处理等方面具有不同的特点。根据实际需求，可以选择合适的类来处理图像。
