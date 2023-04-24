@@ -35,3 +35,5 @@ Qt的默认连接方式，如果信号的发出和接收这个信号的对象同
 与默认工作方式相同，只是不能重复连接相同的信号和槽，因为如果重复连接就会导致一个信号发出，对应槽函数就会执行多次。这个flag可以通过按位或（|）与以上四个结合在一起使用
 6.Qt::AutoCompatConnection
 是为了连接Qt4与Qt3的信号槽机制兼容方式，工作方式与Qt::AutoConnection一样。
+
+QListWidget是基于Item，而QListView是基于Model的。
