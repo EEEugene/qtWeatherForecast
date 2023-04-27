@@ -37,3 +37,16 @@ Qt的默认连接方式，如果信号的发出和接收这个信号的对象同
 是为了连接Qt4与Qt3的信号槽机制兼容方式，工作方式与Qt::AutoConnection一样。
 
 QListWidget是基于Item，而QListView是基于Model的。
+
+
+QLineEdit控件textChanged信号和textEdited信号区别：
+
+textChanged信号：每当文本改变时，就会发出这个信号。文本参数是新文本。
+
+与textEdited()不同，当以编程方式更改文本时，例如，通过调用setText()也会发出此信号。
+
+ 
+
+textEdited信号：每当文本被编辑时，就会发出这个信号。文本参数是新文本。
+
+与textChanged()不同，当以编程方式更改文本时，例如，通过调用setText()不会发出此信号。
