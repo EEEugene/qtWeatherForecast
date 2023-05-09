@@ -92,3 +92,9 @@ QImage主要是为图像I/O、图像访问及像素修改而设计。但若用QP
 若图片过大，可用QImage进行加载，然后转成QPixmap用户绘制，QPixmap绘制效果最好。
 
 QListWidget是继承QListView，QListView是基于Model的，需要自己来建模（如建立QStringListModel，QSqlTableModel等），保存数据，这样就大大降低了数据冗余，提高了程序的效率，但是需要我们对数据建模有一定的了解，而QListWidget是一个升级版本的QListView，它已经为我们建立了一个数据存储模型QListWidgetItem，操作方便，直接调用addItem即可添加Item项。
+
+1、QPixmap依赖于硬件，QImage不依赖;
+
+2、QPixmap主要是用于绘图，针对屏幕显示而最佳化设计，QImage主要是为图像IO、图片访问和像素修改设计的。
+
+3、总结：当图片比较小的时候，直接使用QPixmap进行加载，画图时无所谓，当图片大的时候如果直接用QPixmap进行加载会占用比较大的内存，所以当图片大的时候用QImage进行加载，然后转成QPixmap绘制。QPixmap绘制效果最好。
