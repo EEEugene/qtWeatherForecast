@@ -24,9 +24,10 @@ public:
     ~AsiaWea();
     //得到返回值按钮
     WorldListWea* ListBtn = new WorldListWea;
+    QString errmsg;
+
 protected:
     void contextMenuEvent(QContextMenuEvent* event);
-
     void mousePressEvent(QMouseEvent* event);
     void mouseMoveEvent(QMouseEvent* event);
     //获取天气数据、解析Json、更新UI
@@ -35,16 +36,21 @@ protected:
     void updateUI();
     //重写父类的eventFilter方法
     bool eventFilter(QObject* watched,QEvent* event);
-
     void paintHighCurve();
     void paintLowCurve();
+    void weaTypeIcon();
+
 private slots:
     void GetData(QString);
+
 signals:
-    void FirstBtn();
+    void MainBtn();
+    void sendTemp(QString temp,QString city,QString type);
+
 private:
     void onReplied(QNetworkReply* reply);
-    private:
+
+private:
     Ui::AsiaWea *ui;
 
     QMenu* mExitMenu;   // 退出菜单
@@ -55,7 +61,6 @@ private:
 
     Today mToday;
     Day mDay[6];
-
     //星期和日期
     QList<QLabel*> mWeekList;
     QList<QLabel*> mDateList;
