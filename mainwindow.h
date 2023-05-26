@@ -5,8 +5,11 @@
 #include <QMap>
 #include <QMainWindow>
 #include "weatherData.h"
+#include "worldlistwea.h"
+#include "asiawea.h"
 #include<QNetworkAccessManager>
 #include<QNetworkReply>
+#include <citywithtemp.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -17,37 +20,43 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
-   public:
+public:
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
+   //跳转五大洲的按钮
+   WorldListWea* List = new WorldListWea;
+   AsiaWea* World = new AsiaWea;
+   cityWithTemp* city = new cityWithTemp;
 
-   protected:
+protected:
     void contextMenuEvent(QContextMenuEvent* event);
-
     void mousePressEvent(QMouseEvent* event);
     void mouseMoveEvent(QMouseEvent* event);
     //获取天气数据、解析Json、更新UI
-    void getWeatherInfo(QString cityCode);
+    void getWeatherInfo(QString cityName);
     void parseJson(QByteArray& byteArray);
     void updateUI();
     //重写父类的eventFilter方法
     bool eventFilter(QObject* watched,QEvent* event);
-
     void paintHighCurve();
     void paintLowCurve();
-    void callKeyBoard();
+    void weaType();
+
+signals:
+    void sendTemp(QString city,QString temp,QString type);
+
 private slots:
     void on_btnSearch_clicked();
+    void receiveData(QString str);
 
 private:
     void onReplied(QNetworkReply* reply);
-   private:
+
+private:
     Ui::MainWindow* ui;
-
-    QMenu* mExitMenu;   // 右键退出的菜单
-    QAction* mExitAct;  // 退出的行为
+    QMenu* mExitMenu;   // 退出菜单
+    QAction* mExitAct;  // 菜单项（退出）
     QPoint mOffset;     //窗口移动时，鼠标与左上角的偏移
-
     QNetworkAccessManager* mNetAccessManager;
 
     Today mToday;
@@ -63,7 +72,6 @@ private:
 
     // 质量指数
     QList<QLabel*> mAqiList;
-//    QList<QLabel*> mTypeList;
 
     //风力风向
     QList<QLabel*> mFxList;
