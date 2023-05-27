@@ -17,15 +17,27 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    worldlistwea.cpp \
+    asiawea.cpp \
+    citywithtemp.cpp \
+    Dialog.cpp
 
 HEADERS += \
     mainwindow.h \
     weatherData.h \
-    weatherTool.h
+    weatherTool.h \
+    worldlistwea.h \
+    asiawea.h \
+    dialog.h \
+    citywithtemp.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    worldlistwea.ui \
+    asiawea.ui \
+    dialog.ui \
+    citywithtemp.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
