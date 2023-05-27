@@ -107,7 +107,7 @@ font: 50pt &quot;Arial&quot;;
 background-color: rgba(0, 255, 255, 0);</string>
             </property>
             <property name="text">
-             <string>32°</string>
+             <string>29°</string>
             </property>
             <property name="scaledContents">
              <bool>true</bool>
@@ -289,14 +289,42 @@ padding: 1px 5px</string>
       <item>
        <widget class="QPushButton" name="btnSearch">
         <property name="styleSheet">
-         <string notr="true">background-color: rgba(157, 133, 255,0);</string>
+         <string notr="true">background-color: rgba(0, 0, 0,1);</string>
         </property>
         <property name="text">
          <string/>
         </property>
         <property name="icon">
          <iconset resource="res.qrc">
-          <normaloff>:/res/search.png</normaloff>:/res/search.png</iconset>
+          <normaloff>:/res/Search.png</normaloff>:/res/Search.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="Jump">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(0, 0, 0,1);</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="res.qrc">
+          <normaloff>:/res/list.png</normaloff>:/res/list.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="World">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(0, 0, 0,1);</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="res.qrc">
+          <normaloff>:/res/world2.png</normaloff>:/res/world2.png</iconset>
         </property>
        </widget>
       </item>
@@ -355,7 +383,7 @@ background-color: rgba(255, 255, 255,0);</string>
       <item>
        <widget class="QLabel" name="lblGanMao">
         <property name="styleSheet">
-         <string notr="true">background-color: rgba(60, 60, 60, 0);
+         <string notr="true">background-color: rgba(60,6 0,6 0, 0);
 padding-left: 5px;
 padding-right: 5px;</string>
         </property>
@@ -370,7 +398,7 @@ padding-right: 5px;</string>
       <item>
        <widget class="QWidget" name="widget_2" native="true">
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(157, 133, 255);
+         <string notr="true">background-color: rgb(255, 182, 193);
 border-radius: 15px</string>
         </property>
         <layout class="QGridLayout" name="gridLayout">
