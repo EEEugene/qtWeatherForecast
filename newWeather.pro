@@ -21,7 +21,6 @@ SOURCES += \
     worldlistwea.cpp \
     asiawea.cpp \
     citywithtemp.cpp \
-    Dialog.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -29,7 +28,6 @@ HEADERS += \
     weatherTool.h \
     worldlistwea.h \
     asiawea.h \
-    dialog.h \
     citywithtemp.h
 
 FORMS += \
