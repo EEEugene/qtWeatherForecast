@@ -34,7 +34,6 @@ FORMS += \
     mainwindow.ui \
     worldlistwea.ui \
     asiawea.ui \
-    dialog.ui \
     citywithtemp.ui
 
 # Default rules for deployment.
