@@ -5,7 +5,6 @@
         <file>res/close.png</file>
         <file>res/humidity.png</file>
         <file>res/pm25.png</file>
-        <file>res/search.png</file>
         <file>res/sunrise.png</file>
         <file>res/wind.png</file>
         <file>res/type/BaoXue.png</file>
@@ -44,5 +43,21 @@
         <file>res/type/ZhongDaoDaYu.png</file>
         <file>res/type/ZhongXue.png</file>
         <file>res/type/ZhongYu.png</file>
+        <file>res/bg.jpg</file>
+        <file>res/close.ico</file>
+        <file>res/bg2.jpg</file>
+        <file>res/list.png</file>
+        <file>res/back.png</file>
+        <file>res/weather.ico</file>
+        <file>res/WeaFor.png</file>
+        <file>res/world.png</file>
+        <file>res/world2.png</file>
+        <file>res/Search.png</file>
+        <file>res/Refresh.png</file>
+        <file>res/lbg.jpeg</file>
+        <file>res/scrollBg.jpeg</file>
+        <file>res/hide.png</file>
+        <file>res/hid.png</file>
+        <file>res/lowHumidty.png</file>
     </qresource>
 </RCC>
