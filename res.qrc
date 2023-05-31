@@ -45,5 +45,11 @@
         <file>res/type/ZhongYu.png</file>
         <file>res/bg.jpg</file>
         <file>res/bg2.jpg</file>
+        <file>res/list.png</file>
+        <file>res/back.png</file>
+        <file>res/WeaFor.png</file>
+        <file>res/world2.png</file>
+        <file>res/Search.png</file>
+        <file>res/lowHumidty.png</file>
     </qresource>
 </RCC>
