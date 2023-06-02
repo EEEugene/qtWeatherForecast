@@ -105,7 +105,7 @@ void AsiaWea::getWeatherInfo(QString cityName)
         QMessageBox::warning(this,"提示","暂时不支持该城市",QMessageBox::Ok);
         return;
     }
-    QUrl url("http://yiketianqi.com/api?version=v5&appid=78114119&appsecret=QViUq77K&city=" + cityName);
+    QUrl url("http://yiketianqi.com/api?version=v5&appid=[id]&appsecret=[appsec]&city=" + cityName);
     mNetAccessManager->get(QNetworkRequest(url));
 }
 
