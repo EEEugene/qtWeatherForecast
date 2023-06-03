@@ -10,6 +10,8 @@
 # Notice：
 如果需要使用的话，需要自己修改waetherTool.h中的第20行位置filePath，方可对城市搜索进行正常使用；
 
+AsiaWea中的api也需要进行修改，这边是接入全球天气的api接口，需要在https://tianqiapi.com/user/register 这里进行注册，然后填写id和秘钥即可使用
+
 230502更新：目前已支持全球主要城市的天气，还有一个列表可以进行选择，使用了QListWideget进行操作，然后可以进行五大洲的切换，具体再双击进行查看详细天气
 
 目前已在 Github  开源
@@ -20,7 +22,7 @@
 
 <img src="https://sszblog.oss-cn-shenzhen.aliyuncs.com/img/weather.png">
 
-<img src="https://sszblog.oss-cn-shenzhen.aliyuncs.com/img/wea.png">
+<img src="https://sszblog.oss-cn-shenzhen.aliyuncs.com/img/微信截图_20230603180123.png">
 
 <img src="https://sszblog.oss-cn-shenzhen.aliyuncs.com/img/WorldWeaDetail.png">
 
