@@ -7,21 +7,6 @@ QImage和QPixMap对透明度的处理方式不同：QPixMap中的像素不支持
 综上所述，QImage和QPixMap在应用场景、像素数据存储方式、透明度处理等方面具有不同的特点。根据实际需求，可以选择合适的类来处理图像。
 
 
-## qt中connect的第五个参数，是干什么用的？
-
-在Qt中，connect()函数用于连接一个信号(signal)和槽(slot)。connect()函数的第五个参数是用于实现一个队列(Queued Connection)或立即调用(Direct Connection)方式连接的标志。
-
-connect()函数的完整形式如下：
-
-connect(sender, &Sender::signal, receiver, &Receiver::slot, Qt::ConnectionType connectionType)
-其中，connectionType参数用来声明信号和槽之间的连接方式。connectionType参数既可以是Qt::ConnectionType枚举类型中的常量，也可以是直接使用它们的整数值。常见的常量值有：
-
-Qt::AutoConnection: 如果信号和槽在同一个线程中，则使用Qt::DirectConnection，否则使用Qt::QueuedConnection。
-Qt::DirectConnection: 当信号发射时，槽函数会立即执行，不管它们在哪个线程中。
-Qt::QueuedConnection: 当信号发射时，槽函数会被添加到接收者对象所在的线程的事件队列中，并在接收者线程的事件循环中执行。
-第五个参数的默认值是Qt::AutoConnection。使用Qt::DirectConnection连接方式可以快速地执行信号和槽之间的连接，但是如果信号发射和槽函数的执行在不同的线程中，那么这种方式可能会导致问题，因此使用Qt::QueuedConnection连接方式更加安全。
-
-
 Qt支持6种连接方式，其中前3种最主要:
 1.Qt::AutoConnection（自动方式）
 Qt的默认连接方式，如果信号的发出和接收这个信号的对象同属一个线程，那个工作方式与直连方式相同；否则工作方式与排队方式相同。
